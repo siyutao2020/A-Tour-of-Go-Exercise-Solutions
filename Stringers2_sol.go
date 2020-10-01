@@ -1,16 +1,17 @@
 package main
 
-import ("fmt"
-		"strconv"
-		"strings"
-	   )
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 type IPAddr [4]byte
 
 // TODO: Add a "String() string" method to IPAddr
 func (ip IPAddr) String() string {
 	var strs []string
-	for _, b := range(ip) {
+	for _, b := range ip {
 		strs = append(strs, strconv.Itoa(int(b)))
 	}
 	return strings.Join(strs, ".")
