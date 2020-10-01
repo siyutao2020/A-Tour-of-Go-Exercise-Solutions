@@ -42,13 +42,13 @@ func Crawl(wg *sync.WaitGroup, url string, depth int, fetcher Fetcher) {
 	// TODO: Don't fetch the same URL twice.
 	// This implementation doesn't do either:
 	defer wg.Done()
-	
+
 	count := Counter.GetValue(url)
 	if depth <= 0 || count > 0 {
 		return
 	}
 	Counter.Inc(url)
-	
+
 	body, urls, err := fetcher.Fetch(url)
 	if err != nil {
 		fmt.Println(err)
@@ -64,12 +64,12 @@ func Crawl(wg *sync.WaitGroup, url string, depth int, fetcher Fetcher) {
 
 func main() {
 	var wg sync.WaitGroup
-	
+
 	Counter.v = make(map[string]int)
-	
+
 	wg.Add(1)
 	go Crawl(&wg, "https://golang.org/", 4, fetcher)
-	
+
 	wg.Wait()
 }
 
